@@ -35,6 +35,16 @@ class BookModel extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'author': author,
+      'cover_url': cover_url,
+      'download_url': download_url,
+    };
+  }
+
   @override
   List<Object?> get props => [
         id,
