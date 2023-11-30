@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:teste_escribo_app/src/repositories/book_repository.dart';
 import 'package:teste_escribo_app/src/states/book_state.dart';
 
-class BookStore extends ValueNotifier<BookState> {
+class BookStoreProvider extends ChangeNotifier {
   final repository = BookRepository();
+  late BookState _bookState;
 
-  BookStore() : super(BookState.init());
+  BookStoreProvider() {
+    _bookState = BookState.init();
+  }
+
+  BookState get bookState => _bookState;
 
   Future<void> fetchBooks() async {
     final books = await repository.fetchBooks();
-    value = value.copyWith(books: books);
+    _bookState = _bookState.copyWith(books: books);
+    notifyListeners();
   }
 }
