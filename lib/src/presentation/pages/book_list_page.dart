@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:teste_escribo_app/src/stores/book_store_provider.dart';
 
 class BookListPage extends StatefulWidget {
@@ -31,6 +32,7 @@ class _BookListPageState extends State<BookListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final _provider = Provider.of<BookStoreProvider>(context);
     return Scaffold(
       backgroundColor: Colors.deepPurple.shade100,
       body: SafeArea(
@@ -89,11 +91,15 @@ class _BookListPageState extends State<BookListPage> {
                       top: 0,
                       right: 0,
                       child: IconButton(
-                        icon: const Icon(
-                          Icons.favorite_border,
-                          color: Colors.white,
+                        icon: Icon(
+                          _provider.isFavorite(book)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: _provider.isFavorite(book)
+                              ? Colors.red
+                              : Colors.white,
                         ),
-                        onPressed: () {},
+                        onPressed: () => _provider.toggleFavorite(book),
                       ),
                     ),
                   ],

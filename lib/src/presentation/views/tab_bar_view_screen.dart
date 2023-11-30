@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:teste_escribo_app/src/presentation/pages/book_lista_page.dart';
+import 'package:teste_escribo_app/src/presentation/pages/book_list_favorites_page.dart';
+import 'package:teste_escribo_app/src/presentation/pages/book_list_page.dart';
 
 class TabBarViewScreen extends StatefulWidget {
   const TabBarViewScreen({super.key});
@@ -52,9 +53,7 @@ class _TabBarViewScreenState extends State<TabBarViewScreen>
         controller: _tabController,
         children: [
           BookListPage(),
-          const Center(
-            child: Text('Cart'),
-          ),
+          const BookListFavoritesPage(),
         ],
       ),
     );
