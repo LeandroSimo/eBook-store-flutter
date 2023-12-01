@@ -7,10 +7,12 @@ class CardCoverBook extends StatelessWidget {
     super.key,
     required this.book,
     required BookStoreProvider provider,
+    required this.onTap,
   }) : _provider = provider;
 
   final BookModel book;
   final BookStoreProvider _provider;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,15 @@ class CardCoverBook extends StatelessWidget {
         children: [
           Expanded(
             flex: 4,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                image: DecorationImage(
-                  image: NetworkImage(book.cover_url),
-                  fit: BoxFit.cover,
+            child: GestureDetector(
+              onTap: onTap,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  image: DecorationImage(
+                    image: NetworkImage(book.cover_url),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

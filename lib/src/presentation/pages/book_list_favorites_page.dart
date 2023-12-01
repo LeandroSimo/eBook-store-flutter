@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teste_escribo_app/src/presentation/widgets/card_cover_book.dart';
 import 'package:teste_escribo_app/src/stores/book_store_provider.dart';
+import 'package:teste_escribo_app/src/stores/epub_store.dart';
 
 class BookListFavoritesPage extends StatelessWidget {
   const BookListFavoritesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final _epub = EpubStore();
     final _provider = Provider.of<BookStoreProvider>(context);
     final books = _provider.getFavorites();
 
@@ -21,7 +23,6 @@ class BookListFavoritesPage extends StatelessWidget {
                   child: Text(
                     'Não há favoritos',
                     style: TextStyle(
-                      // fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -36,7 +37,13 @@ class BookListFavoritesPage extends StatelessWidget {
                   itemCount: books.length,
                   itemBuilder: (_, index) {
                     final book = books[index];
-                    return CardCoverBook(book: book, provider: _provider);
+                    return CardCoverBook(
+                      book: book,
+                      provider: _provider,
+                      onTap: () async {
+                        await _epub.download(book.download_url, context);
+                      },
+                    );
                   },
                 ),
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teste_escribo_app/src/presentation/widgets/card_cover_book.dart';
 import 'package:teste_escribo_app/src/stores/book_store_provider.dart';
+import 'package:teste_escribo_app/src/stores/epub_store.dart';
 
 class BookListPage extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class BookListPage extends StatefulWidget {
 
 class _BookListPageState extends State<BookListPage> {
   final bookStore = BookStoreProvider();
-
+  final _epubStore = EpubStore();
   @override
   void initState() {
     super.initState();
@@ -35,6 +36,7 @@ class _BookListPageState extends State<BookListPage> {
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     final _provider = Provider.of<BookStoreProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.deepPurple.shade100,
       body: SafeArea(
@@ -52,7 +54,13 @@ class _BookListPageState extends State<BookListPage> {
                   itemCount: bookStore.bookState.books.length,
                   itemBuilder: (_, index) {
                     final book = bookStore.bookState.books[index];
-                    return CardCoverBook(book: book, provider: _provider);
+                    return CardCoverBook(
+                      book: book,
+                      provider: _provider,
+                      onTap: () async {
+                        await _epubStore.download(book.download_url, context);
+                      },
+                    );
                   },
                 ),
         ),
