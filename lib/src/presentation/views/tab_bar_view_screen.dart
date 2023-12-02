@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:teste_escribo_app/src/presentation/pages/book_list_favorites_page.dart';
 import 'package:teste_escribo_app/src/presentation/pages/book_list_page.dart';
-import 'package:vocsy_epub_viewer/epub_viewer.dart';
 
 class TabBarViewScreen extends StatefulWidget {
   const TabBarViewScreen({super.key});
